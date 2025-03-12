@@ -5,16 +5,30 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Curso {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable=false, length=200)
+    @Column(nullable = false, length = 200)
     private String nome;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Integer cargaHoraria;
+
+    @ManyToOne
+    @JoinColumn(name = "categoriaCurso_ID")
+    private CategoriaCurso categoriaCurso;
+
+    public CategoriaCurso getCategoriaCurso() {
+        return categoriaCurso;
+    }
+
+    public void setCategoriaCurso(CategoriaCurso categoriaCurso) {
+        this.categoriaCurso = categoriaCurso;
+    }
 
     public Curso(Long id, String nome, Integer cargaHoraria) {
         this.id = id;
